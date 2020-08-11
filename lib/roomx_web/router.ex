@@ -17,8 +17,10 @@ defmodule RoomxWeb.Router do
   scope "/", RoomxWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
-    live "/rooms", RoomsLive, :index
+    # get "/", PageController, :index
+    resources "/rooms", RoomController
+
+    live "/room/:room_id", RoomsLive
   end
 
   # Other scopes may use custom stacks.

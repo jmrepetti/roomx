@@ -14,6 +14,7 @@ defmodule Roomx.Rooms.Room do
   def changeset(room, attrs) do
     room
     |> cast(attrs, [:name, :uuid, :activity])
-    |> validate_required([:name, :activity])
+    # |> validate_required([:name, :activity])
+    |> validate_required([:name])
   end
 end
