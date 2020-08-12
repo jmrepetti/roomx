@@ -10,7 +10,7 @@ defmodule RoomxWeb.RoomController do
   end
 
   def new(conn, _params) do
-    changeset = Rooms.change_room(%Room{})
+    changeset = Rooms.change_room(%Room{uuid: UUID.uuid1()})
     render(conn, "new.html", changeset: changeset)
   end
 

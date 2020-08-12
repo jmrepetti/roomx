@@ -12,8 +12,12 @@
 <%= for room <- @rooms do %>
     <tr>
       <td><%= room.name %></td>
+      <td><%= room.uuid %></td>
+      <td><%= room.activity %></td>
+      <td><%= room.activity %></td>
 
       <td>
+        <span><%= link "Live", to: Routes.live_path(RoomxWeb.Endpoint, RoomxWeb.MinesRoomLive, room.uuid) %></span>
         <span><%= link "Show", to: Routes.room_path(@conn, :show, room) %></span>
         <span><%= link "Edit", to: Routes.room_path(@conn, :edit, room) %></span>
         <span><%= link "Delete", to: Routes.room_path(@conn, :delete, room), method: :delete, data: [confirm: "Are you sure?"] %></span>

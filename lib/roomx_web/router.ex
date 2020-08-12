@@ -20,7 +20,8 @@ defmodule RoomxWeb.Router do
     # get "/", PageController, :index
     resources "/rooms", RoomController
 
-    live "/room/:room_id", RoomsLive
+    live "/r/mines/:session_id", MinesRoomLive
+    # live "/r/words/:session_id", WordsRoomLive
   end
 
   # Other scopes may use custom stacks.

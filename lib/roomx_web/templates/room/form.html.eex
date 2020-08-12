@@ -9,6 +9,14 @@
   <%= text_input f, :name %>
   <%= error_tag f, :name %>
 
+  <%= label f, :uuid %>
+  <%= text_input f, :uuid %>
+  <%= error_tag f, :uuid %>
+
+  <%= label f, :activity %>
+  <%= select f, :activity, [:mines, :words] %>
+  <%= error_tag f, :activity %>
+
   <div>
     <%= submit "Save" %>
   </div>

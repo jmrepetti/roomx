@@ -6,6 +6,14 @@
     <strong>Name:</strong>
     <%= @room.name %>
   </li>
+  <li>
+    <strong>UUID:</strong>
+    <%= @room.uuid %>
+  </li>
+  <li>
+    <strong>Activity:</strong>
+    <%= @room.activity %>
+  </li>
 
 </ul>
 

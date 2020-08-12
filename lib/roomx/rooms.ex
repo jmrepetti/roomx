@@ -37,6 +37,14 @@ defmodule Roomx.Rooms do
   """
   def get_room!(id), do: Repo.get!(Room, id)
 
+
+  @doc """
+  Gets a single room by its UUID.
+  """
+  def get_room_by_uuid!(uuid), do: Repo.get_by!(Room, uuid: uuid)
+
+
+
   @doc """
   Creates a room.
 

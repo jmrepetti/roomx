@@ -6,6 +6,8 @@ defmodule Roomx.Rooms.Room do
     field :activity, :string #buscaminas:sessionid
     field :name, :string #buscando minas
     field :uuid, :string #uuid
+    #TODO: max capacitu/plauers/visitors/etc (should remeber player returning?)
+    # field :max_clients, :integer
 
     timestamps()
   end
