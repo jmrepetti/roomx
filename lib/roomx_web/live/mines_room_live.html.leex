@@ -1,1 +1,17 @@
-<h3>Room <strong><%= @room.name %></strong>(<span style="color:grey;"><%= @room.uuid %></span>)</h3>
+<h3>Room <strong><%= @state[:room].name %></strong>(<span style="color:grey;"><%= @state[:room].uuid %></span>)</h3>
+<div class="debug"><%= @state[:map] %></div>
+<div id="mines">
+  <%= for row <- 0..@state[:rows] - 1 do %>
+    <div class="row">
+    <%= for col <- 0..@state[:cols] - 1 do %>
+      <div class="cell c<%= Enum.at(@state[:map], ((row * @state[:rows] + col))) %>">
+        <div class="debug">
+          row: <%= row  %>
+          col: <%= col %>
+          pos: <%= row * @state[:rows] + col %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+  <% end %>
+</div>
