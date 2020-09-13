@@ -13,12 +13,12 @@ Start server:
 
   * Start Phoenix endpoint with `mix phx.server`
 
-Now you can visit [`localhost:4000`](http://localhost:4000/rooms) from your browser.
+Now you can visit [`localhost:4000/rooms`](http://localhost:4000/rooms) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
 ## TODO
 
 - [] save board state
-- [] add layer/overlay for showing/hiding cells 
-- [] handle clicks 
+- [x] add layer/overlay for showing/hiding cells
+  - [x] handle clicks

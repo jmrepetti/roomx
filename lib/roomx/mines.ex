@@ -65,7 +65,7 @@ defmodule Roomx.Mines do
   end
 
 
-  def add_mines_around(map, max_x, max_y) do
+  def add_mines_around_numbers(map, max_x, max_y) do
     map
     |> Enum.with_index
     |> Enum.map(fn({x, pos}) ->
@@ -86,6 +86,6 @@ defmodule Roomx.Mines do
     total_cells = xval * yval
     mines_positions = random_mines_positions([], mines, total_cells)
     gen_empty_and_mines(total_cells, mines_positions)
-      |> add_mines_around(xval, yval)
+      |> add_mines_around_numbers(xval, yval)
   end
 end
