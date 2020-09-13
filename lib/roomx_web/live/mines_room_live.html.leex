@@ -4,14 +4,19 @@
   <%= for row <- 0..@rows - 1 do %>
     <div class="row">
     <%= for col <- 0..@cols - 1 do %>
+      <% cell_position = (row * @rows + col) %>
       <%# TODO: add a helper to obtain cell position %>
-      <div class="<%= if Enum.member?(@discovered, (row * @rows + col)), do: "discovered", else: "covered"%> cell c<%= Enum.at(@map, ((row * @rows + col))) %>" phx-click="discover_cell" phx-value-cell=<%= (row * @rows + col) %>>
-        <div class="debug">
-          row: <%= row  %>
-          col: <%= col %>
-          pos: <%= row * @rows + col %>
+      <%= if Enum.member?(@discovered, cell_position) do %>
+        <div class="cell c<%= Enum.at(@map, cell_position) %>">
+          <div class="debug">
+            row: <%= row  %>
+            col: <%= col %>
+            pos: <%= row * @rows + col %>
+          </div>
         </div>
-      </div>
+      <%= else %>
+        <div class="cell covered" phx-click="discover_cell" phx-value-cell=<%= cell_position %>></div>
+      <% end %>
     <% end %>
     </div>
   <% end %>

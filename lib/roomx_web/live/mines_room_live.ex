@@ -5,7 +5,6 @@ defmodule RoomxWeb.MinesRoomLive do
   alias Roomx.Rooms.Room
 
   def handle_event("discover_cell", %{ "cell" => value }, socket) do
-    # TODO: ignore already clicked cells
     socket =
       socket
       |> update(:discovered, fn discovered -> [String.to_integer(value) | discovered] end)
@@ -20,7 +19,7 @@ defmodule RoomxWeb.MinesRoomLive do
     total_bombs = 10
     map = Roomx.Mines.generate_map(cols,rows,total_bombs)
     discovered = []
-    state = [room: room, map: map, cols: cols, rows: rows, total_bombs: total_bombs, discovered: discovered ]
+    state = [ room: room, map: map, cols: cols, rows: rows, total_bombs: total_bombs, discovered: discovered ]
     {:ok, assign(socket, state)}
   end
 
