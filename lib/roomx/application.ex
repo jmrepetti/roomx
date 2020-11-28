@@ -12,7 +12,7 @@ defmodule Roomx.Application do
       # Start the Telemetry supervisor
       RoomxWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: Roomx.PubSub},
+      {Phoenix.PubSub, [name: Roomx.PubSub, adapter: Phoenix.PubSub.PG2]},
       # Start the Endpoint (http/https)
       RoomxWeb.Endpoint
       # Start a worker by calling: Roomx.Worker.start_link(arg)
