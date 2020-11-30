@@ -1,17 +1,17 @@
-<h3>Room <strong><%= @room.name %></strong>(<span style="color:grey;"><%= @room.uuid %></span>)</h3>
-<div class="debug"><%= @map %></div>
+<h3>Room <strong><%= @game_state[:room] %></strong>(<span style="color:grey;"><%= @game_state[:session_id] %></span>)</h3>
+<div class="debug"><%= @game_state[:map] %></div>
 <div id="mines">
-  <%= for row <- 0..@rows - 1 do %>
+  <%= for row <- 0..@game_state[:rows] - 1 do %>
     <div class="row">
-    <%= for col <- 0..@cols - 1 do %>
-      <% cell_position = (row * @rows + col) %>
+    <%= for col <- 0..@game_state[:cols] - 1 do %>
+      <% cell_position = (row * @game_state[:rows] + col) %>
       <%# TODO: add a helper to obtain cell position %>
-      <%= if Enum.member?(@discovered, cell_position) do %>
-        <div class="cell c<%= Enum.at(@map, cell_position) %>">
+      <%= if Enum.member?(@game_state[:discovered], cell_position) do %>
+        <div class="cell c<%= Enum.at(@game_state[:map], cell_position) %>">
           <div class="debug">
             row: <%= row  %>
             col: <%= col %>
-            pos: <%= row * @rows + col %>
+            pos: <%= row * @game_state[:rows] + col %>
           </div>
         </div>
       <%= else %>
