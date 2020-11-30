@@ -1,4 +1,4 @@
-<h3>Room <strong><%= @game_state[:room] %></strong>(<span style="color:grey;"><%= @game_state[:session_id] %></span>)</h3>
+<h3>Room <strong><%= @game_state[:room] %></strong>(<span style="color:grey;"><%= @game_state[:game_id] %></span>)</h3>
 <div class="debug"><%= @game_state[:map] %></div>
 <div id="mines">
   <%= for row <- 0..@game_state[:rows] - 1 do %>
