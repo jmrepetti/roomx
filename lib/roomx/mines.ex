@@ -1,51 +1,37 @@
 defmodule Roomx.Mines do
-  # may require a seed
-  def random_mines_positions(list, mines_to_plant, max_cells) do
-    if mines_to_plant > 0 do
-      mine_position = :rand.uniform(max_cells)
-      if Enum.member?(list, mine_position) do #try again if already taken
-        random_mines_positions(list, mines_to_plant, max_cells)
-      else
-        random_mines_positions([mine_position | list], mines_to_plant - 1, max_cells)
-      end
-    else
-      list
-    end
-  end
+  use Memoize
 
-  def gen_empty_and_mines(total_cells, mines_positions) do
-    Enum.map(1..total_cells, fn x ->
-      if Enum.member?(mines_positions, x) do
-        'M'
-      else
-        'E'
-      end
-    end)
-  end
-
-  def cells_around_a_cell(pos, max_x, max_y) do
-    max = max_x * max_y
-    top = pos - max_x
-    bottom = pos  + max_x
-    [
-      top,
-      top - 1,
-      top + 1,
-      pos - 1, #left,
-      pos + 1, #right,
-      bottom ,
-      bottom - 1,
-      bottom + 1
+  defmemo neighbor_cells(pos, max_x, max_y) do
+    north = pos - max_x
+    northe = north + 1
+    northw = north - 1
+    west = pos - 1
+    east = pos + 1
+    south = pos + max_x
+    southw = south - 1
+    southe = south + 1
+    IO.inspect "neighbor_cells for: #{pos}"
+    neigh = [
+      northw,
+      north,
+      northe,
+      west,
+      east,
+      southw,
+      south,
+      southe
     ]
+    # |> IO.inspect(charlists: :as_lists)
     |> Enum.filter(fn x ->
-      x >= 0 && x <= max
+      # remove any negative value or bigger than total cells
+      x >= 0 && x <= (max_x * max_y)
     end)
     |> Enum.filter(fn x ->
       # for first column, reject everything on the left
-      if rem(pos, max_x) == 0 do
-        x != pos - 1 &&
-        x != bottom - 1 &&
-        x != top -  1
+      if pos == 0 || (rem(pos, max_x) == 0) do
+        # IO.inspect "for first column, reject everything on the left: #{pos}"
+        # IO.inspect([west, northw, southw], charlists: :as_lists)
+        !Enum.member?([west, northw, southw], x)
       else
         true
       end
@@ -55,37 +41,58 @@ defmodule Roomx.Mines do
     |> Enum.filter(fn x ->
       # for last column, reject everything on the right
       if pos > 0 && rem(pos, max_x - 1) == 0 do
-        x != pos + 1 &&
-        x != bottom + 1 &&
-        x != top + 1
+        # IO.inspect "for last column, reject everything on the right: #{pos}"
+        # IO.inspect([east, northe, southe], charlists: :as_lists)
+        !Enum.member?([east, northe, southe], x)
       else
         true
       end
     end)
   end
+  # may require a seed
+  def random_numbers(list, n, max) do
+    if n > 0 do
+      mine_position = :rand.uniform(max)
+      if Enum.member?(list, mine_position) do #try again if already taken
+        random_numbers(list, n, max)
+      else
+        random_numbers([mine_position | list], n - 1, max)
+      end
+    else
+      list
+    end
+  end
 
+  def gen_map(mines, max) do
+    mines_location = random_numbers([], mines, max)
+    Enum.map(1..max, fn x ->
+      if Enum.member?(mines_location, x), do: 'M', else: 'E'
+    end)
+  end
 
-  def add_mines_around_numbers(map, max_x, max_y) do
+  defp count_neighbor_mines(map, cell_pos, max_x, max_y) do
+    neighbor_cells(cell_pos, max_x, max_y)
+    |> Enum.reduce(0, fn pos, acc ->
+        if Enum.at(map, pos) == 'M', do: acc + 1, else: acc
+    end)
+  end
+
+  defp mark_near_mines(map, max_x, max_y) do
     map
     |> Enum.with_index
-    |> Enum.map(fn({x, pos}) ->
-      if x == 'E' do
-        near_cells = cells_around_a_cell(pos, max_x, max_y)
-        count = Enum.reduce(near_cells, 0, fn cell, acc ->
-          if Enum.at(map, cell) == 'M', do: acc + 1, else: acc
-        end)
-        if count > 0, do: count, else: x
+    |> Enum.map(fn({cell, idx}) ->
+      if cell != 'M' do # == 'E' doesn't work, because adding marks replace E with numbers
+        count = count_neighbor_mines(map, idx, max_x, max_y)
+        if count > 0, do: count, else: cell
       else
-        x
+        cell
       end
     end)
   end
 
   @spec generate_map(number, number, any) :: any
   def generate_map(xval,yval,mines) do
-    total_cells = xval * yval
-    mines_positions = random_mines_positions([], mines, total_cells)
-    gen_empty_and_mines(total_cells, mines_positions)
-      |> add_mines_around_numbers(xval, yval)
+    gen_map(mines, xval * yval)
+    |> mark_near_mines(xval, yval)
   end
 end
