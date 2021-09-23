@@ -14,12 +14,10 @@
             pos: <%= row * @game_state[:rows] + col %>
           </div>
         </div>
-      <%= else %>
+      <% else %>
         <div class="cell covered" phx-click="discover_cell" phx-value-cell=<%= cell_position %>></div>
       <% end %>
     <% end %>
     </div>
   <% end %>
 </div>
-
-
