@@ -54,7 +54,7 @@ defmodule RoomxWeb.RoomController do
   def delete(conn, %{"id" => id}) do
     room = Rooms.get_room!(id)
     {:ok, _room} = Rooms.delete_room(room)
-
+    Roomx.RoomsAgent.delete(id) #check if exist
     conn
     |> put_flash(:info, "Room deleted successfully.")
     |> redirect(to: Routes.room_path(conn, :index))
