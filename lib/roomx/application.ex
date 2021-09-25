@@ -9,7 +9,7 @@ defmodule Roomx.Application do
     children = [
       # Start the Ecto repository
       Roomx.Repo,
-      Roomx.MinesGamesAgent,
+      Roomx.RoomsAgent,
       # Start the Telemetry supervisor
       RoomxWeb.Telemetry,
       # Start the PubSub system

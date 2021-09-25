@@ -1,4 +1,4 @@
-defmodule Roomx.MinesGamesAgent do
+defmodule Roomx.RoomsAgent do
   use Agent
 
   def start_link(_arg) do
