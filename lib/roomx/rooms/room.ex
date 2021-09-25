@@ -3,9 +3,9 @@ defmodule Roomx.Rooms.Room do
   import Ecto.Changeset
 
   schema "rooms" do
-    field :activity, :string #buscaminas:sessionid
-    field :name, :string #buscando minas
-    field :uuid, :string #uuid
+    field :activity, :string # mines, tateti, etc
+    field :name, :string # "buscando minas con tu hermana"
+    field :uuid, :string # uuid
     #TODO: max capacitu/plauers/visitors/etc (should remeber player returning?)
     # field :max_clients, :integer
 
