@@ -1,4 +1,4 @@
-<h1>Show Room</h1>
+<h1>Room details</h1>
 
 <ul>
 
@@ -17,5 +17,6 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.room_path(@conn, :edit, @room) %></span>
-<span><%= link "Back", to: Routes.room_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.room_path(@conn, :edit, @room) %></span> |
+<span><%= link "Back", to: Routes.room_path(@conn, :index) %></span> |
+<span><%= link "Live", to: Routes.live_path(RoomxWeb.Endpoint, activity_live_module(@room), @room.uuid), class: "button" %></span>
