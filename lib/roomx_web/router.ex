@@ -20,7 +20,10 @@ defmodule RoomxWeb.Router do
     # get "/", PageController, :index
     resources "/rooms", RoomController
 
-    live "/r/mines/:game_id", MinesRoomLive
+    # live "/r/mines/:game_id", MinesRoomLive
+    live "/mines/:room_id", RoomMinesLive
+    live "/tateti/:room_id", RoomTatetiLive
+
     # live "/r/words/:session_id", WordsRoomLive
   end
 

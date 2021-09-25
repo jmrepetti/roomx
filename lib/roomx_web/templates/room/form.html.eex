@@ -14,7 +14,7 @@
   <%= error_tag f, :uuid %>
 
   <%= label f, :activity %>
-  <%= select f, :activity, [:mines, :words] %>
+  <%= select f, :activity, [:mines, :tateti, :words] %>
   <%= error_tag f, :activity %>
 
   <div>
